@@ -1,7 +1,8 @@
+Installation
 The project generates data from Twitter feed based on the keywords provided and sends the data to kafka, wherein Elastic search consumes the data.
 
 To start zookeeper\
-zookeeper-server-start config/zookeeper.properties
+<strong>zookeeper-server-start config/zookeeper.properties<strong/>
 
 To start kafka host\
 kafka-server-start config/server.properties
