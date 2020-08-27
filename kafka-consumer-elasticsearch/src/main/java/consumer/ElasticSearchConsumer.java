@@ -33,8 +33,8 @@ import java.util.Properties;
 
 public class ElasticSearchConsumer {
     public static RestHighLevelClient createClient(){
-
-        String hostname = "kafka-214246331.ap-southeast-2.bonsaisearch.net:443";
+        // using hosted elastic search Bonsai
+        String hostname = "kafka-214246331.ap-southeast-2.bonsaisearch.net";
         String username = "ng3yoxcugh";
         String password = "m2y2grfrqo";
 
@@ -58,7 +58,7 @@ public class ElasticSearchConsumer {
     public static KafkaConsumer<String, String> createConsumer(String topic){
 
         String bootstrapServers = "127.0.0.1:9092";
-        String groupId = "kafka-demo-elasticsearch";
+        String groupId = "kafka-elasticsearch";
 
         //consumer configs
         Properties properties = new Properties();
@@ -114,7 +114,7 @@ public class ElasticSearchConsumer {
 
                     bulkRequest.add(indexRequest);
                 } catch (NullPointerException e){
-                    logger.warn("skipping bad data: " + record.value());
+                    logger.warn("skipping data without id for idempotency " + record.value());
                 }
             }
 
@@ -122,7 +122,7 @@ public class ElasticSearchConsumer {
                 BulkResponse bulkItemResponses = client.bulk(bulkRequest, RequestOptions.DEFAULT);
                 logger.info("Committing offsets...");
                 consumer.commitSync();
-                logger.info("Offsets have been committed");
+                logger.info("Offsets committed");
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
