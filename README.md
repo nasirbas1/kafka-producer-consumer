@@ -1,4 +1,4 @@
-Installation
+<strong>OVERVIEW</strong\
 <i>The project generates data from Twitter feed based on the keywords provided and sends the data to kafka, wherein Elastic search consumes the data</i>
 
 To start zookeeper\
