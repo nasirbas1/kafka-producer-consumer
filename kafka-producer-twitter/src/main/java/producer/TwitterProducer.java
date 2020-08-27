@@ -24,6 +24,7 @@ import java.util.concurrent.TimeUnit;
 public class TwitterProducer {
     Logger logger = LoggerFactory.getLogger(TwitterProducer.class.getName());
 
+    // twitter dev account creds go here
     String consumerKey = "";
     String consumerSecret = "";
     String token = "";
@@ -55,11 +56,10 @@ public class TwitterProducer {
         //shutdown hook
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             logger.info("stopping application...");
-            logger.info("shutting down client from twitter...");
             client.stop();
             logger.info("closing producer...");
             producer.close();
-            logger.info("done!");
+            logger.info("stopping completed!");
         }));
 
         // send tweets to kafka
